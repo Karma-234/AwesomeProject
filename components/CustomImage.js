@@ -7,7 +7,7 @@ const CustomImage = () => {
     const appScheme = useColorScheme();
     const dimHook = useWindowDimensions();
   return (
-    <View style={[{flex:1}, appScheme === 'dark'? {backgroundColor:'grey'} : {backgroundColor:'pink'}]}>
+    <View style={[{flex:0.5}, appScheme === 'dark'? {backgroundColor:'grey'} : {backgroundColor:'pink'}]}>
       <ImageBackground style={{flex: 1, alignItems:'center'}} source={logo}>
         <Text style={{position: 'absolute', top: dimHook.height >1000? '50%':'30%'}}>Hello World</Text>
       </ImageBackground>

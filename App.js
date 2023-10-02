@@ -3,6 +3,7 @@ import { StyleSheet, Switch, Text, View } from 'react-native';
 import MenuList from './components/MenuList';
 import Custom from './components/SectionList';
 import CustomImage from './components/CustomImage';
+import CustomButton from './components/CustomButton';
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
       {/* <MenuList/> */}
       {/* <Custom/> */}
       <CustomImage/>
+      <CustomButton/>
       <StatusBar hidden={false} style="inverted" animated />
     </View>
   );
