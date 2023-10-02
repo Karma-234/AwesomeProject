@@ -1,16 +1,15 @@
 import { View, Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React from 'react'
 
-const CustomTextInput = () => {
+const CustomTextInput = ({secureText, placeholder, keyboardType, maxLength, inputMode}) => {
   return (
-    <View>
+    <View style={{height: 70}}>
       <KeyboardAvoidingView>
-        <ScrollView keyboardDismissMode='on-drag'>
-            <TextInput keyboardType='decimal-pad' placeholder='Pin' numberOfLines={5} passwordRules={''} maxLength={1}  />
-        </ScrollView>
+            <TextInput placeholderTextColor={'#fff'} keyboardType={keyboardType} placeholder={placeholder ??'Username'}  secureTextEntry={secureText ?? false} maxLength={maxLength} inputMode={inputMode ?? 'text'} style={{ borderColor: '#fff', borderWidth: 1 , color: '#fff', padding: 20}}  onChange={e=>{
+            }}/>
       </KeyboardAvoidingView>
     </View>
   )
 }
 
-export default CustomTextInput
+export default CustomTextInput;
