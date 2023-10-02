@@ -6,7 +6,7 @@ const CustomTextInput = () => {
     <View>
       <KeyboardAvoidingView>
         <ScrollView keyboardDismissMode='on-drag'>
-            <TextInput keyboardType='number-pad' placeholder='Pin' numberOfLines={5} passwordRules={''} />
+            <TextInput keyboardType='decimal-pad' placeholder='Pin' numberOfLines={5} passwordRules={''} maxLength={1}  />
         </ScrollView>
       </KeyboardAvoidingView>
     </View>
