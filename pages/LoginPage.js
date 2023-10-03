@@ -1,8 +1,10 @@
-import { View, Text, StyleSheet, Modal } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, Modal, Animated, BackHandler } from 'react-native'
+import React, { Component, useEffect, useState } from 'react'
 import CustomGap from '../components/CustomGap';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
+import TaskCard from '../components/TaskCard';
+import AppModal from '../components/AppModal';
 
 const LoginPage = ({navigation}) => {
   const [isModalVisible, setShowModal] = useState(false);
@@ -27,8 +29,8 @@ const LoginPage = ({navigation}) => {
   };
   useEffect(() => {
     console.clear();
+    BackHandler.addEventListener("hardwareBackPress", () => true);
   }, []);
-  
   return (
     <View style={style.container}>
      <View style={style.formVontainer}>
@@ -54,6 +56,7 @@ const LoginPage = ({navigation}) => {
       }}/>
       <CustomGap height={11}/>
      </View>
+     <AppModal/>
     </View>
   )
 }

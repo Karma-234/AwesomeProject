@@ -32,8 +32,6 @@ const style = StyleSheet.create({
         // alignSelf: 'center',
         color: 'white',
         // textAlign: 'center',
-        
-        
     }
 });
 
