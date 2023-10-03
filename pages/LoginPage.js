@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Modal, Animated, BackHandler } from 'react-native'
+import { View, Text, StyleSheet, Modal, Animated, BackHandler, ActivityIndicator } from 'react-native'
 import React, { Component, useEffect, useRef, useState } from 'react'
 import CustomGap from '../components/CustomGap';
 import CustomTextInput from '../components/CustomTextInput';
@@ -8,6 +8,7 @@ import AppModal from '../components/AppModal';
 const LoginPage = ({navigation}) => {
   const [isModalVisible, setShowModal] = useState(false);
   const [username, setUsername] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const userText = useRef('');
   const userPass = useRef('');
   const [password, setPassword] = useState("");
@@ -51,9 +52,9 @@ const LoginPage = ({navigation}) => {
       <CustomTextInput value={userPass.current.value} placeholder={'Password'} secureText={true} maxLength={12} onChange={e=>setPassword(e)}/>
       {errors.password && <Text style={style.errorText}>{errors.password}</Text>}
       <CustomGap height={26}/>
-      <CustomButton width={157} text={'Login'} onPress={()=>{
+      {isLoading===false ? <CustomButton width={157} text={'Login'} onPress={()=>{
         submitForm();
-      }}/>
+      }}/> : <ActivityIndicator color={'#903AFF'} size={'large'}/>}
       <CustomGap height={11}/>
      </View>
      <AppModal hidden={isModalVisible} onPress={()=>{
