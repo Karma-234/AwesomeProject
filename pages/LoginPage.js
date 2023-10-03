@@ -9,8 +9,6 @@ const LoginPage = ({navigation}) => {
   const [isModalVisible, setShowModal] = useState(false);
   const [username, setUsername] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const userText = useRef('');
-  const userPass = useRef('');
   const [password, setPassword] = useState("");
   const [errors, setError] = useState({});
   const validateForm = ()=>{
@@ -43,13 +41,13 @@ const LoginPage = ({navigation}) => {
         </Text>
       </Text>
       <CustomGap height={24}/>
-      <CustomTextInput value={userText.current.value} onChange={e=>{
+      <CustomTextInput value={username} onChange={e=>{
         // e.preventDefault();
         setUsername(e);
       }}/>
       {errors.username && <Text style={style.errorText}>{errors.username}</Text>}
       <CustomGap height={12}/>
-      <CustomTextInput value={userPass.current.value} placeholder={'Password'} secureText={true} maxLength={12} onChange={e=>setPassword(e)}/>
+      <CustomTextInput value={password} placeholder={'Password'} secureText={true} maxLength={12} onChange={e=>setPassword(e)}/>
       {errors.password && <Text style={style.errorText}>{errors.password}</Text>}
       <CustomGap height={26}/>
       {isLoading===false ? <CustomButton width={157} text={'Login'} onPress={()=>{
@@ -61,8 +59,6 @@ const LoginPage = ({navigation}) => {
       setUsername("");
       setError({});
       setPassword("");
-      userPass.current = '';
-      userText.current="";
       setShowModal(false);
       navigation.navigate('Home');
      }}/>
