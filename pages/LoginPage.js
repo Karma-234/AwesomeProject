@@ -4,7 +4,7 @@ import CustomGap from '../components/CustomGap';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
 
-const LoginPage = () => {
+const LoginPage = ({navigation}) => {
   const [isModalVisible, setShowModal] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +19,7 @@ const LoginPage = () => {
   };
   const submitForm = ()=>{
     if (validateForm()) {
+      //Make Api call
       setUsername("");
       setError({});
       setPassword("");
@@ -45,6 +46,7 @@ const LoginPage = () => {
       {errors.password && <Text style={style.errorText}>{errors.password}</Text>}
       <CustomGap height={26}/>
       <CustomButton width={157} text={'Login'} onPress={()=>{
+        navigation.navigate('Home');
         setShowModal(true);
         // validateForm();
         submitForm();
