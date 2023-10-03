@@ -3,10 +3,10 @@ import React from 'react'
 import CustomGap from './CustomGap';
 import CustomButton from './CustomButton';
 
-const AppModal = ({hidden, children, buttonText, onPress, title, message, customStyle }) => {
+const AppModal = ({hidden=false, children, buttonText, onPress=()=>{}, title, message, customStyle }) => {
   return (
     <View>
-      <Modal transparent={true} visible={hidden??false} animationType='slide'>
+      <Modal transparent={true} visible={hidden} animationType='slide'>
         {/* {children} */}
         <View style={{flex: 1, justifyContent:'center', backgroundColor: 'transparent', padding: 22,}}>
             <View style={customStyle ?? style.innerModal}>

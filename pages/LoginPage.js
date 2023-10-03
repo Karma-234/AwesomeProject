@@ -1,14 +1,15 @@
 import { View, Text, StyleSheet, Modal, Animated, BackHandler } from 'react-native'
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 import CustomGap from '../components/CustomGap';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
-import TaskCard from '../components/TaskCard';
 import AppModal from '../components/AppModal';
 
 const LoginPage = ({navigation}) => {
   const [isModalVisible, setShowModal] = useState(false);
   const [username, setUsername] = useState("");
+  const userText = useRef('');
+  const userPass = useRef('');
   const [password, setPassword] = useState("");
   const [errors, setError] = useState({});
   const validateForm = ()=>{
@@ -22,41 +23,48 @@ const LoginPage = ({navigation}) => {
   const submitForm = ()=>{
     if (validateForm()) {
       //Make Api call
-      setUsername("");
-      setError({});
-      setPassword("");
+      setShowModal(true);
     }
   };
   useEffect(() => {
-    console.clear();
     BackHandler.addEventListener("hardwareBackPress", () => true);
+    return ()=>{
+      BackHandler.removeEventListener("hardwareBackPress", () => true);
+    }
   }, []);
   return (
     <View style={style.container}>
      <View style={style.formVontainer}>
      <Text style={style.whiteText}>
-        Hi, Welcome{'\n'}<Text>To {'\n'}</Text>  
+        Welcome{'\n'}<Text style={{fontSize: 16}}>To {'\n'}</Text>  
         <Text style={style.coloredText}>
           Task Manager
         </Text>
       </Text>
       <CustomGap height={24}/>
-      <CustomTextInput onChange={e=>setUsername(e)}/>
+      <CustomTextInput value={userText.current.value} onChange={e=>{
+        // e.preventDefault();
+        setUsername(e);
+      }}/>
       {errors.username && <Text style={style.errorText}>{errors.username}</Text>}
       <CustomGap height={12}/>
-      <CustomTextInput placeholder={'Password'} secureText={true} maxLength={12} onChange={e=>setPassword(e)}/>
+      <CustomTextInput value={userPass.current.value} placeholder={'Password'} secureText={true} maxLength={12} onChange={e=>setPassword(e)}/>
       {errors.password && <Text style={style.errorText}>{errors.password}</Text>}
       <CustomGap height={26}/>
       <CustomButton width={157} text={'Login'} onPress={()=>{
-        navigation.navigate('Home');
-        setShowModal(true);
-        // validateForm();
         submitForm();
-        console.clear();
       }}/>
       <CustomGap height={11}/>
      </View>
-     <AppModal/>
+     <AppModal hidden={isModalVisible} onPress={()=>{
+      setUsername("");
+      setError({});
+      setPassword("");
+      userPass.current = '';
+      userText.current="";
+      setShowModal(false);
+      navigation.navigate('Home');
+     }}/>
     </View>
   )
 }

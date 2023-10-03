@@ -3,27 +3,32 @@ import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import CustomGap from './CustomGap';
 import AppButton from './AppButton';
+import AppIcon from './AppIcon';
 
-const TaskCard = () => {
+const TaskCard = ({title = 'Lorrem ipsum', description = 'Lorrem ipsum', onDelete=()=>{}, onDone=()=>{}, isDone = false}) => {
   return (
     <View>
       <LinearGradient style={style.gradient} colors={['#903AFF','#D434FE','#FF26B9','#FE34B9']} locations={[0.0, 0.5642, 0.999, 1.0]}>
         <View style={style.innerContainer}>
             <View style={style.header}>
-                <Text style={style.title}>This is Title</Text>
-                <Text style={style.title}>icon</Text>
+                <Text style={style.title}>
+                    {title}
+                </Text>
+                {isDone&&<AppIcon/>}
             </View>
             <CustomGap height={6}/>
             <View style={style.body}>
                 <View style={{flex: 1}}>
-                <Text style={style.description}>This is Bodydhbhjsbjhbjsjsbsjbjhjshsjjvjvhvjvjvjvjvjvj</Text>
+                <Text style={style.description}>
+                    {description}
+                </Text>
                 </View>
                 <CustomGap width={6} height={6}/>
-                <View style={[style.body]}>
-                    <AppButton width={80} height={55} text='Done' color={'green'}/>
+                    {!isDone && <View style={[style.body]}>
+                    <AppButton width={80} height={55} text='Done' color={'green'} onPress={()=>onDone()}/>
                     <CustomGap width={6} height={6}/>
-                    <AppButton width={80} height={55} text='Delete'/>
-                </View>
+                    <AppButton width={80} height={55} text='Delete' onPress={()=>onDelete()}/>
+                </View>}
             </View>
         </View>
       </LinearGradient>
