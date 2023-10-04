@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, BackHandler, Pressable, SafeAreaView, } from 'react-native'
+import { View, Text, StyleSheet, BackHandler, Pressable, SafeAreaView, Alert, } from 'react-native'
 import React , {useEffect, useState}from 'react'
 import CustomGap from '../components/CustomGap';
 import CustomButton from '../components/CustomButton';
@@ -8,9 +8,17 @@ import { StatusBar } from 'expo-status-bar';
 import TaskCard from '../components/TaskCard';
 import HomeAppBar from '../components/HomeAppBar';
 import CustomTextInput from '../components/CustomTextInput';
+import TaskList, { menuItemsToDisplay } from '../components/TaskList';
+// import Snackbar from 'react-native-snackbar';
 
 const HomePage = ({navigation}) => {
   const [isModalVisible, setShowModal]= useState(false);
+  const [title, setTitle]= useState('');
+  const [description, setDescription]= useState('');
+  const [taskItem, setItems]=useState(menuItemsToDisplay);
+  function showSnackBar(text) {
+    
+  }
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", () => true);
   
@@ -19,13 +27,15 @@ const HomePage = ({navigation}) => {
   
   return (
     <View style={style.container}>
-      <HomeAppBar/>
+      <HomeAppBar onLogout={()=>navigation.navigate('Login')}/>
+      <CustomGap height={16}/>
       <View style={style.bodyContainer}>
-        <SafeAreaView>
-        <CustomGap height={25}/>
-        <TaskCard/>
-        <CustomGap height={25}/>
-        <CustomButton width={200} text={'Go back'} onPress={()=>navigation.navigate('Login')}/>
+      <SafeAreaView>
+       <TaskList  itemsToDisplay={taskItem} onDelete={(e)=>{
+        setItems(e);
+       }} onDone={e=>{
+        setItems([...e]);
+       }}/>
       </SafeAreaView>
       </View>
      <View style={style.floatingButton}>
@@ -33,10 +43,13 @@ const HomePage = ({navigation}) => {
             <AppIcon name={'plus'} color={'white'} size={50}/>
           </Pressable>
       </View>
-        <AppModal textColor={'white'}  hidden={isModalVisible} onPress={()=>setShowModal(false)} title={'Add task'} customStyle={style.modal}>
-          <CustomTextInput placeholder={'Title'}/>
+        <AppModal textColor={'white'}  hidden={isModalVisible} onPress={()=>{
+          setShowModal(false);
+          Alert.alert('Task added successfully!');
+        }} title={'Add task'} customStyle={style.modal}>
+          <CustomTextInput placeholder={'Title'} onChange={e=>{setTitle(e)}}/>
           <CustomGap height={8}/>
-          <CustomTextInput placeholder={'Description'}/>
+          <CustomTextInput placeholder={'Description'} onChange={e=>{setDescription(e)}}/>
         </AppModal>
         <StatusBar backgroundColor='white' style='light'/>
     </View>

@@ -5,6 +5,7 @@ import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
 import AppModal from '../components/AppModal';
 import  supabase  from '../supabase';
+import { getAppTodo } from '../service/storage';
 
 
 const LoginPage = ({navigation}) => {
@@ -16,9 +17,16 @@ const LoginPage = ({navigation}) => {
   const [errors, setError] = useState({});
   useEffect(() => {
     // console.log(supabase.from('User').insert({id: '',email:`${username}@task.com`,created_at:new Date()}));
-  
+      // getAppTodo({id:'a66b80c1-4ba1-48c5-96fa-4d2653a9c5e8'})
+      // .then(e=>{
+      //   // console.log(e);
+      // }).catch(e=>{
+      //   console.log(e);
+      // });
     return () => {
-      
+      setUsername("");
+      setError({});
+      setPassword("");
     }
   }, []);
   
@@ -43,10 +51,10 @@ const LoginPage = ({navigation}) => {
     return Object.keys(errors).length === 0;
   };
   const submitForm = ()=>{
-    if (validateForm()) {
+    if (!validateForm()) {
       //Make Api call
-      login();
-      // setShowModal(true);
+      // login();
+      setShowModal(true);
     }
   };
   return (
@@ -69,16 +77,14 @@ const LoginPage = ({navigation}) => {
       {errors.password && <Text style={style.errorText}>{errors.password}</Text>}
       <CustomGap height={26}/>
       {isLoading===false ? <CustomButton width={157} text={'Login'} onPress={()=>{
-        submitForm();
+        // submitForm();
+        setShowModal(true);
       }}/> : <ActivityIndicator color={'#903AFF'} size={'large'}/>}
       <CustomGap height={11}/>
      </View>
      <AppModal hidden={isModalVisible} onPress={()=>{
-      navigation.navigate('Home',{username, id });
-      setUsername("");
-      setError({});
-      setPassword("");
       setShowModal(false);
+      navigation.navigate('Home');
      }}/>
     </View>
   )
