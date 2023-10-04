@@ -32,7 +32,7 @@ const HomePage = ({navigation}) => {
       <View style={style.bodyContainer}>
       <SafeAreaView>
        <TaskList  itemsToDisplay={taskItem} onDelete={(e)=>{
-        setItems(e);
+        setItems([...e]);
        }} onDone={e=>{
         setItems([...e]);
        }}/>
