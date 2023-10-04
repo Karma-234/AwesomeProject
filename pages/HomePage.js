@@ -23,7 +23,7 @@ const HomePage = ({navigation}) => {
     BackHandler.addEventListener("hardwareBackPress", () => true);
   
     return () => BackHandler.removeEventListener("hardwareBackPress");
-  }, [])
+  }, []);
   
   return (
     <View style={style.container}>
