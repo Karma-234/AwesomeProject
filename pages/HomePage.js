@@ -6,6 +6,7 @@ import AppIcon from '../components/AppIcon';
 import AppModal from '../components/AppModal';
 import { StatusBar } from 'expo-status-bar';
 import TaskCard from '../components/TaskCard';
+import HomeAppBar from '../components/HomeAppBar';
 
 const HomePage = ({navigation}) => {
   const [isModalVisible, setShowModal]= useState(false);
@@ -17,12 +18,12 @@ const HomePage = ({navigation}) => {
   
   return (
     <View style={style.container}>
+      <HomeAppBar/>
      <SafeAreaView>
-     <Text>HomePage</Text>
       <CustomGap height={25}/>
       <TaskCard/>
       <CustomGap height={25}/>
-      <CustomButton width={200} text={'Go back'} onPress={()=>navigation.goBack()}/>
+      <CustomButton width={200} text={'Go back'} onPress={()=>navigation.navigate('Login')}/>
      </SafeAreaView>
      <View style={style.floatingButton}>
           <Pressable onPress={()=>setShowModal(true)}>

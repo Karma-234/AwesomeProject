@@ -68,7 +68,7 @@ const LoginPage = ({navigation}) => {
 const style = StyleSheet.create({
   container: {flex: 1, 
               flexDirection: 'column', 
-              backgroundColor: '#150E28', 
+              backgroundColor: '#903AFF', 
               justifyContent: 'center',
               padding: 11,
               },
