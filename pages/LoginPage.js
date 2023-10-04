@@ -1,17 +1,38 @@
-import { View, Text, StyleSheet, Modal, Animated, BackHandler, ActivityIndicator } from 'react-native'
-import React, { Component, useEffect, useRef, useState } from 'react'
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import CustomGap from '../components/CustomGap';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
 import AppModal from '../components/AppModal';
+import  supabase  from '../supabase';
 
 
 const LoginPage = ({navigation}) => {
   const [isModalVisible, setShowModal] = useState(false);
   const [username, setUsername] = useState("");
+  const [id, setID] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [errors, setError] = useState({});
+  useEffect(() => {
+    // console.log(supabase.from('User').insert({id: '',email:`${username}@task.com`,created_at:new Date()}));
+  
+    return () => {
+      
+    }
+  }, []);
+  
+  function login() {
+    setLoading(true);
+    supabase.auth.signInWithPassword({email: `${username}@task.com`, password: password})
+    .then(e=>{
+      console.log(e.data.user.id);
+    })
+    .catch(e=>{console.log(e.message)})
+    .finally(()=>{
+      setLoading(false);
+    });
+  }
   const validateForm = ()=>{
     let errors = {};
     if(!username) errors.username = 'Username cannot be empty!';
@@ -24,15 +45,10 @@ const LoginPage = ({navigation}) => {
   const submitForm = ()=>{
     if (validateForm()) {
       //Make Api call
-      setShowModal(true);
+      login();
+      // setShowModal(true);
     }
   };
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", () => true);
-    return ()=>{
-      BackHandler.removeEventListener("hardwareBackPress", () => true);
-    }
-  }, []);
   return (
     <View style={style.container}>
      <View style={style.formVontainer}>
@@ -58,11 +74,11 @@ const LoginPage = ({navigation}) => {
       <CustomGap height={11}/>
      </View>
      <AppModal hidden={isModalVisible} onPress={()=>{
+      navigation.navigate('Home',{username, id });
       setUsername("");
       setError({});
       setPassword("");
       setShowModal(false);
-      navigation.navigate('Home');
      }}/>
     </View>
   )
