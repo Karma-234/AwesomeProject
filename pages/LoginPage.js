@@ -89,7 +89,7 @@ const style = StyleSheet.create({
               },
   whiteText:{
     color: 'white',
-    fontSize: 32,
+    fontSize: 18,
     textAlign: 'center',
   },
   coloredText:{
