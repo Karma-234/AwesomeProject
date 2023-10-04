@@ -5,6 +5,7 @@ import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
 import AppModal from '../components/AppModal';
 
+
 const LoginPage = ({navigation}) => {
   const [isModalVisible, setShowModal] = useState(false);
   const [username, setUsername] = useState("");
@@ -16,6 +17,7 @@ const LoginPage = ({navigation}) => {
     if(!username) errors.username = 'Username cannot be empty!';
     if (username.match("[ !-\/:-@[-`{-~]")) errors.username = 'No spaces or sepcial characters in username!';
     if(!password) errors.password = 'Password cannot be empty!';
+    if(password.length < 6) errors.password = 'Password must not be less than 6 characters!';
     setError(errors);
     return Object.keys(errors).length === 0;
   };
